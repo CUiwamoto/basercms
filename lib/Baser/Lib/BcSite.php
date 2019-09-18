@@ -394,7 +394,14 @@ class BcSite {
 	public function existsUrl(CakeRequest $request) {
 		$url = $this->makeUrl($request);
 		$Content = ClassRegistry::init('Content');
-		return $Content->existsPublishUrl($url);
+		/**
+		 * 第4,5引数については要調査
+		 */
+		if($this->alias){
+			return $Content->findByUrl($url, true, true, false, false);
+		}else{
+			return $Content->findByUrl($url, true, false, false, false);
+		}
 	}
 
 /**
